@@ -8,7 +8,6 @@ age = int(user_age)
 
 votingAge_range = 18
 
-
 if age >= votingAge_range:
     print(f"Hi {username_str}, You are eligible to vote!")
 else:
