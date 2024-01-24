@@ -1,0 +1,8 @@
+Lists:
+- Makes use of a square bracket for its definition []: name = [Ella, Dami, Semilogo, Yusuf, Ben, Tobi]
+- can be of different data types: my_list = [35, "Yusuf", 4.6, 98]
+age = my_list[0]
+Tuples:
+- Makes use of parenthesis (): Name = (Ella, Dami, Semilogo, Yusuf, Ben, Tobi).
+- can be of different data types: my_tuple = (35, "Yusuf", 4.6, 98)
+
