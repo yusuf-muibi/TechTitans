@@ -14,7 +14,7 @@ def factorial(number):
 while True:
     user_input = input("Enter a positive number: \n")
 
-    if user_input.lstrip("-").isdigit():
+    if user_input.lstrip("-").isdigit():# if we input a negative sign, the lstrip will be triggered so we can input a digit
         number =  int(user_input)
         if number >= 0:
             answer = factorial(number)
