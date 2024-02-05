@@ -1,12 +1,13 @@
 # Write a Python program that takes a number as input from the user
-# and prints the factorial of that number. Use a while loop to validate that the
-# input is a non-negative integer, and then use a for loop to calculate the factorial.
+# and prints the factorial of that number.
+# Use a while loop to validate that the input is a non-negative integer,
+# and then use a for loop to calculate the factorial.
 
 
 def factorial(number):
     factorial_result = 1
     for i in range(1, number + 1):
-        factorial_result *= i
+        factorial_result = factorial_result * i
     return factorial_result
 
 
