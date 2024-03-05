@@ -1,10 +1,10 @@
-# #Calender creation
-# import calendar
+#Calender creation
+import calendar
 
-# year = int(input("Enter year: "))
-# month = int(input("Enter month: "))
-# cal = calendar.month(year, month)
-# print(cal)
+year = int(input("Enter year: "))
+month = int(input("Enter month: "))
+cal = calendar.month(year, month)
+print(cal)
 
 #creating a calender that takes in the year,month and day for an investment
 import calendar
