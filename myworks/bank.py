@@ -36,14 +36,22 @@ def signup():
 
             while True:
 
-                cus_pword = input("Create your password: ")
+                cus_pword = input("Create your password, password must contain upper, lower and special characters and >= 8: ")
+                if not len(cus_pword) >= 8 or not any(char.isupper() for char in cus_pword) or not any(char.islower() for char in cus_pword):
+                    print("password must contain characters greater than 8 and must include upper,lower and special charaacters")
+                    print("pls try again")
+                    continue
+                
+    
                 con_pword = input("Confirm your password: ") 
+                
                 if con_pword == cus_pword:
                     print("Valid password")
                     break
                 else:
                     print("Invalid password")
                 cus_info["password"] = cus_pword
+                    
 
                 cus_data[cus_info["username"]] = cus_info 
             
