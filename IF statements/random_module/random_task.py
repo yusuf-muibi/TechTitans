@@ -26,7 +26,7 @@ print(random_sum)
 
 import random
 random_word = input("Enter you word: ")
-shuffled_word = random.sample(random_word, len(original_word))
+# shuffled_word = random.sample(random_word, len(original_word))
 
 
 
