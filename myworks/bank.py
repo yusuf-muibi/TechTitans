@@ -5,10 +5,19 @@ For password (it sld not be less than 8, it must contain letters(upper and lower
 To make the email a real email, we might use regex
 """
 import json #a way of saving our string value in a way the computer can understand and it is easier for our computer to access it as a dictionary
+import re
 Techtitan_database = '.database'
 print("Welcome to techtitans 'Our bank your bank'")
 cus_data = {}
 
+def validate_email(email):
+    # Define a regex pattern for email validation
+    pattern = r"[\w\.-]+@[\w\.-]+(\.[\w]+)+"
+    # Use re.match() to find matches
+    if re.match(pattern, email):
+        return True
+    else:
+        return False
 
 def signin():
     try:
@@ -34,11 +43,14 @@ def signup():
             for cus in cus_signup:
                 cus_info[cus] = input(f"Enter your {cus}: ")
 
+                if cus == 'Email' and not validate_email(cus_info['Email']):
+                    print("Invalid Email combination")
+                    return 
             while True:
 
                 cus_pword = input("Create your password, password must contain upper, lower and special characters and >= 8: ")
                 if not len(cus_pword) >= 8 or not any(char.isupper() for char in cus_pword) or not any(char.islower() for char in cus_pword):
-                    print("password must contain characters greater than 8 and must include upper,lower and special charaacters")
+                    print("password must contain characters greater than 8 and must include upper,lower and special characters")
                     print("pls try again")
                     continue
                 
@@ -53,7 +65,7 @@ def signup():
                 cus_info["password"] = cus_pword
                     
 
-                cus_data[cus_info["username"]] = cus_info 
+                cus_data[cus_info['Username']] = cus_info 
             
             with open(Techtitan_database, "a") as td:
                 json.dump(cus_info, td, indent=2)
