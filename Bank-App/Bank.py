@@ -78,12 +78,22 @@ def signup():
 
         """To add the user information to the database"""
         cus_data[cus_info["Username"]] = cus_info
-        
+
         """To write the updated data back into the file"""
         with open(techtitans_database, "w") as td:
             json.dump(cus_data, td, indent=2)
 
         print(f"Successfully signed up {cus_info['Username']}")
+
+        signin_option = input("Do you want to sign in now ? (yes/no): ")
+
+        if signin_option.lower() == 'yes':
+            signin()
+        elif signin_option.lower() =="no":
+            print("Goodbye!")
+            exit(1)
+        else:
+            print("Invalid Option! Please enter a valid option.")
 
     except (KeyboardInterrupt, EOFError):
         print("\nGoodbye!")
