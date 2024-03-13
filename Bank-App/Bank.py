@@ -1,88 +1,92 @@
-# Create a signin, signup as functions
-# Add an option to deposit, withdraw , invest and check balance
+print("Welcome to Tech-titans portal")
+cus_data = {}
+
+techtitans_database = ".database"
 import json
 import re
 
-techtitan_database = ".database"
-print('Welcome to Techtitans "Our bank your bank"')
-cus_data = {}
+
+def mainlayout():
+    cus_signup = input("Do you want to sign Up or sign In: ")
+
+    if cus_signup.lower() == "sign up":
+        signup()
+    elif cus_signup.lower() == "sign in":
+        signin()
+    else:
+        print("Invalid Option Please enter 'sign Up' or 'sign In'")
 
 
 def signin():
     try:
-        cus_username = input("Enter username: ")
-        signin_pword = input("Enter password: ")
-        with open(techtitan_database, "r") as td:
-            cus_data = json.load(td)
-            if cus_username in cus_data:
-                if cus_data[cus_username]["password"] == signin_pword:
-                    print(f"Welcome back {cus_username}")
-                else:
-                    print("Incorrect password")
-            else:
-                print("User not found")
+        username_input = input("Enter your username: ")
+        password_input = input("Enter your password: ")
 
-    except EOFError:
-        print("Exit")
+        with open(techtitans_database, "r") as td:
+            cus_data = json.load(td)
+
+            if username_input in cus_data:
+                if cus_data[username_input]["password"] == password_input:
+                    print(f"Welcome back, {username_input}")
+                else:
+                    print("Incorrect password. Please try again.")
+            else:
+                print("Username not found. Please sign up if you haven't already.")
+
+    except (KeyboardInterrupt, EOFError):
+        print("\nGoodbye!")
 
 
 def signup():
     try:
-        cus_signup = input("Do you want to sign up or sign in: ")
-        if cus_signup.lower() == "sign up":
-            cus_info = {}
-            cus_signup = ["Fullname", "Username", "Email", "Phone number"]
+        cus_info = {}
+        cus_signups = ["Fullname", "Username", "Email", "Phone number"]
 
-            for i in cus_signup:
-                if i == "Email":
-                    while True:
-                        email = input(f"Enter your {i}: ")
-                        if re.match(r"[^@]+@[^@]+\.[^@]+", email):
-                            cus_info[i] = email
-                            break
-                        else:
-                            print("Invalid email format! Please enter a valid email.")
-                else:
-                    cus_info[i] = input(f"Enter your {i}: ")
-
-            """ this is where the changes started"""
-
-            while True:
-                cus_pword = input("Create Password: ")
-
-                if len(cus_pword) >= 8 and cus_pword[0].isupper():
-                    con_pword = input("Confirm password: ")
-
-                    if con_pword == cus_pword:
-                        print("Valid password")
+        for i in cus_signups:
+            if i == "Email":
+                while True:
+                    email = input(f"Enter your {i}: ")
+                    if re.match(r"[^@]+@[^@]+\.[^@]+", email):
+                        cus_info[i] = email
                         break
                     else:
-                        print("Passwords do not match. Try again.")
+                        print("Invalid email format! Please enter a valid email.")
+            else:
+                cus_info[i] = input(f"Enter your {i}: ")
+
+        while True:
+            cus_pword = input("Create Password: ")
+
+            if len(cus_pword) >= 8 and cus_pword[0].isupper():
+                con_pword = input("Confirm password: ")
+
+                if con_pword == cus_pword:
+                    print("Password match")
+                    break
                 else:
-                    print(
-                        "Invalid password! Make sure it's at least 8 characters long and starts with an uppercase letter."
-                    )
+                    print("Passwords do not match. Try again.")
+            else:
+                print(
+                    "Invalid password! Make sure it's at least 8 characters long and starts with an uppercase letter."
+                )
 
-            cus_info["password"] = cus_pword
-            cus_data[cus_info["Username"]] = cus_info
+        cus_info["password"] = cus_pword
 
-            """And it ended here"""
+        with open(techtitans_database, "r") as td:
+            cus_data = json.load(td)
 
-            with open(techtitan_database, "a") as td:
-                json.dump(cus_info, td, indent=2)
+        cus_data[cus_info["Username"]] = cus_info
 
-            print(f"Successfully signed up {cus_info['Username']}")
+        with open(techtitans_database, "w") as td:
+            json.dump(cus_data, td, indent=2)
 
-        elif cus_signup.lower() == "sign in":
-            signin()
-        else:
-            print("Invalid input, sign in or sign up")
+        print(f"Successfully signed up {cus_info['Username']}")
 
-    except EOFError:
-        print("Exiting program")
+    except (KeyboardInterrupt, EOFError):
+        print("\nGoodbye!")
 
 
 try:
-    signup()
+    mainlayout()
 except ValueError as ve:
-    print("Error")
+    print(f"Error! {ve}")
