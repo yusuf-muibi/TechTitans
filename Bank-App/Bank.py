@@ -4,10 +4,11 @@ cus_data = {}
 techtitans_database = ".database"
 import json
 import re
+from os import path
 
 
 def mainlayout():
-    cus_signup = input("Do you want to sign Up or sign In: ")
+    cus_signup = input("Do you want to sign up or sign in: ")
 
     if cus_signup.lower() == "sign up":
         signup()
@@ -73,8 +74,6 @@ def signup():
         cus_info["password"] = cus_pword
 
         """To first of all load the existing database"""
-        with open(techtitans_database, "r") as td:
-            cus_data = json.load(td)
 
         """To add the user information to the database"""
         cus_data[cus_info["Username"]] = cus_info
@@ -84,6 +83,11 @@ def signup():
             json.dump(cus_data, td, indent=2)
 
         print(f"Successfully signed up {cus_info['Username']}")
+        if path.exists("techtitans_database") and path.getsize > 0:
+            with open(techtitans_database, "r") as td:
+                cus_data = json.load(td)
+                for k,v in cus_data.item():
+                    cus_data[k] = v
 
         signin_option = input("Do you want to sign in now ? (yes/no): ")
 
