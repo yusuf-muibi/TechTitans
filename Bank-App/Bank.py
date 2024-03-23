@@ -8,14 +8,18 @@ from os import path
 
 
 def mainlayout():
-    cus_signup = input("Do you want to sign up or sign in: ")
+    while True:
+        cus_signup = input("Do you want to sign up or sign in (or type 'exit' to quit): ")
 
-    if cus_signup.lower() == "sign up":
-        signup()
-    elif cus_signup.lower() == "sign in":
-        signin()
-    else:
-        print("Invalid Option Please enter 'sign Up' or 'sign In'")
+        if cus_signup.lower() == "sign up":
+            signup()
+        elif cus_signup.lower() == "sign in":
+            signin()
+        elif cus_signup.lower() == "exit":
+            print("Goodbye!")
+            exit(1)
+        else:
+            print("Invalid Option Please enter 'sign up' or 'sign in'")
 
 
 def signin():
@@ -74,8 +78,11 @@ def signup():
         cus_info["password"] = cus_pword
 
         """To first of all load the existing database"""
-        with open(techtitans_database, "r") as td:
-                cus_data = json.load(td)
+        if not path.exists(techtitans_database) or path.getsize(techtitans_database) == 0:
+            cus_data = {}
+        else:
+            with open(techtitans_database, "r") as td:
+                    cus_data = json.load(td)
 
         """To add the user information to the database"""
         cus_data[cus_info["Username"]] = cus_info
@@ -85,9 +92,6 @@ def signup():
             json.dump(cus_data, td, indent=2)
 
         print(f"Successfully signed up {cus_info['Username']}")
-        # if path.exists("techtitans_database") and path.getsize > 0:
-        #         for k,v in cus_data.item():
-        #             cus_data[k] = v
 
         signin_option = input("Do you want to sign in now ? (yes/no): ")
 
