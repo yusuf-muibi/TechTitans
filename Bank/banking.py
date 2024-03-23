@@ -1,25 +1,72 @@
-class BankAccount:
-    def __init__(self, name, balance=0):
-        self.account_holder = name
-        self.bal = balance
-
-    def deposit(self, amount):
-        self.bal = self.bal + amount
-        print(f"Deposited {amount} to your account")
-
-    def withdrawal(self, amount):
-        if amount > self.bal:
-            print(f"Insufficient fund, your available balance is {self.bal}")
-
-        else:
-            self.bal = self.bal - amount
-
-    def __str__(self):
-        return f"Account Holder Name: {self.account_holder} \nBalance: {self.bal}"
+from home import Techtitan_database
+import json
 
 
-obj = BankAccount("Tobi", 2000)
-print(obj)
-obj.deposit(200)
-obj.withdrawal(500)
-print(obj)
+def deposit(username, amount):
+    try:
+        with open(Techtitan_database, "r") as td:
+            cus_data = json.load(td)
+            if username in cus_data:
+                cus_data[username]["balance"] += amount
+                print(
+                    f"Deposit successful. New balance: {cus_data[username]['balance']}"
+                )
+                with open(Techtitan_database, "w") as td:
+                    json.dump(cus_data, td, indent=2)
+            else:
+                print("User not found")
+    except Exception as e:
+        print(f'An error occurred:" ,{e}')
+
+
+def withdraw(username, amount):
+    try:
+        with open(Techtitan_database, "r") as td:
+            cus_data = json.load(td)
+            if username in cus_data:
+                if cus_data[username]["balance"] >= amount:
+                    cus_data[username]["balance"] -= amount
+                    print(
+                        f"Withdrawal successful. New balance: {cus_data[username]['balance']}"
+                    )
+                    with open(Techtitan_database, "w") as td:
+                        json.dump(cus_data, td, indent=2)
+                else:
+                    print("Insufficient balance")
+            else:
+                print("User not found")
+    except Exception as e:
+        print(f'An error occurred:", {e}')
+
+
+def invest(username, amount):
+    try:
+        with open(Techtitan_database, "r") as td:
+            cus_data = json.load(td)
+            if username in cus_data:
+                if cus_data[username]["balance"] >= amount:
+                    cus_data[username]["balance"] -= amount
+                    cus_data[username]["investments"] += amount
+                    print(
+                        f"Investment successful. New balance: {cus_data[username]['balance']}"
+                    )
+                    with open(Techtitan_database, "w") as td:
+                        json.dump(cus_data, td, indent=2)
+                else:
+                    print("Insufficient balance")
+            else:
+                print("User not found")
+    except Exception as e:
+        print('An error occurred:", {e}')
+
+
+def check_balance(username):
+    try:
+        with open(Techtitan_database, "r") as td:
+            cus_data = json.load(td)
+            if username in cus_data:
+                print(f"Current balance: {cus_data[username]['balance']}")
+            else:
+                print("User not found")
+    except Exception as e:
+        print(f'An error occurred:", {e}')
