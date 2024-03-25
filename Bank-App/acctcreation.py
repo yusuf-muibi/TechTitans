@@ -1,25 +1,9 @@
-print("Welcome to Tech-titans portal")
 cus_data = {}
 
 techtitans_database = ".database"
 import json
 import re
 from os import path
-
-
-def mainlayout():
-    while True:
-        cus_signup = input("Do you want to sign up or sign in (or type 'exit' to quit): ")
-
-        if cus_signup.lower() == "sign up":
-            signup()
-        elif cus_signup.lower() == "sign in":
-            signin()
-        elif cus_signup.lower() == "exit":
-            print("Goodbye!")
-            exit(1)
-        else:
-            print("Invalid Option Please enter 'sign up' or 'sign in'")
 
 
 def signin():
@@ -105,9 +89,3 @@ def signup():
 
     except (KeyboardInterrupt, EOFError):
         print("\nGoodbye!")
-
-
-try:
-    mainlayout()
-except ValueError as ve:
-    print(f"Error! {ve}")

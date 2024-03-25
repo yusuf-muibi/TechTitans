@@ -1,3 +1,16 @@
 {
-  
+  "Raza34": {
+    "Fullname": "Raza",
+    "Username": "Raza34",
+    "Email": "Raza@gmail.com",
+    "Phone number": "09076543219",
+    "password": "Razaq1234"
+  },
+  "Yusuf34": {
+    "Fullname": "Yusuf muibi",
+    "Username": "Yusuf34",
+    "Email": "Yusuf@gmail.ng",
+    "Phone number": "0906784744545",
+    "password": "Yuslaw876"
+  }
 }
