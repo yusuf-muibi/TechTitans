@@ -3,6 +3,7 @@
 # if the user choosesto sign up collect the user's information.
 # If they choose to sign in, only ask for their username and password
 
+import time
 print("Welcome to Tech-titans portal")
 
 users = []
@@ -26,36 +27,40 @@ while True:
 
             if choice_sign.lower() == "y":
                 isuser_loggedin = True
-                break
+                while True:
+                    log_username = input("Enter your Username: ")
+
+                    if any(user["Username"] == log_username for user in users):
+                        logged_in_user = next(
+                            user for user in users if user["Username"] == log_username
+                        )
+                        print("Proceed")
+                        break
+                    else:
+                        print("User not found! Try again.")
+
+                while True:
+                    log_password = input("Enter your Password: ")
+
+                    if any(user["Password"] == log_password for user in users):
+                        logged_in_user = next(
+                            user for user in users if user["Password"] == log_password
+                        )
+                        print(f"Successfully Logged in")
+                        break
+                    else:
+                        print("Wrong password. Try again.")
+                        break
+
             elif choice_sign.lower() == "n":
-                continue
+                time.sleep(5)
+                print("Okay. See You Later!")
+                break
             else:
                 print("Invalid Input! Please Enter a Valid input Again.")
-
-        if choice_sign.lower() == "y":
-            while True:
-                log_username = input("Enter your Username: ")
-
-                if any(user["Username"] == log_username for user in users):
-                    logged_in_user = next(
-                        user for user in users if user["Username"] == log_username
-                    )
-                    print("Proceed")
-                    break
-                else:
-                    print("User not found! Try again.")
-
-            while True:
-                log_password = input("Enter your Password: ")
-
-                if any(user["Password"] == log_password for user in users):
-                    logged_in_user = next(
-                        user for user in users if user["Password"] == log_password
-                    )
-                    print(f"Successfully Logged in")
-                    break
-                else:
-                    print("Wrong password. Try again.")
+        time.sleep(5)
+        print("Bye!!")
+        break
 
     elif choice.lower() == "sign in":
         username = input("Enter your Username: ")
