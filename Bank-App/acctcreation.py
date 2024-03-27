@@ -5,6 +5,8 @@ import json
 import re
 from os import path
 
+default_balance = 0.00
+
 
 def signin():
     try:
@@ -17,6 +19,7 @@ def signin():
             if username_input in cus_data:
                 if cus_data[username_input]["password"] == password_input:
                     print(f"Welcome back, {username_input}")
+                    return username_input
                 else:
                     print("Incorrect password. Please try again.")
             else:
@@ -24,6 +27,7 @@ def signin():
 
     except (KeyboardInterrupt, EOFError):
         print("\nGoodbye!")
+    return None
 
 
 def signup():
